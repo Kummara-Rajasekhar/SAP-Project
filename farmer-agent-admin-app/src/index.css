@@ -1,0 +1,430 @@
+/* Global layout and alignment */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #f8f9fa;
+  font-size: 16px; /* Standard website font size */
+}
+
+/* App container and main content layout */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Navbar styling - Fixed header with increased size */
+.navbar-custom {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  border-bottom: 1px solid #e0e0e0;
+  height: 70px; /* Increased height */
+  padding: 0 20px;
+}
+
+.navbar-custom .navbar-brand {
+  font-size: 1.4rem; /* Increased size */
+  font-weight: 600;
+  color: #4caf50;
+}
+
+.navbar-custom .nav-link {
+  font-size: 1rem; /* Increased size */
+  padding: 0.6rem 1.2rem !important; /* Increased padding */
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.navbar-custom .nav-link:hover {
+  color: #4caf50;
+}
+
+.navbar-custom .navbar-nav {
+  align-items: center;
+}
+
+.navbar-custom .btn {
+  font-size: 0.95rem; /* Increased size */
+  padding: 0.35rem 0.85rem; /* Increased padding */
+  border-radius: 6px;
+}
+
+/* Footer styling - Attached at end of each page */
+.footer {
+  position: relative; /* Changed from fixed to relative */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+  color: #ffffff !important; /* Force white text */
+  padding: 50px 0 25px 0; /* Increased padding */
+  border-top: 1px solid rgba(255,255,255,0.1);
+  margin-top: auto; /* Push to bottom of page */
+}
+
+/* Remove the hidden/visible classes since footer is always at page end */
+.footer.visible {
+  /* No special styling needed */
+}
+
+.footer .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.footer h5 {
+  font-size: 1.2rem; /* Increased size */
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #ffffff !important; /* Force white text */
+}
+
+.footer p, .footer a {
+  font-size: 1rem; /* Increased size */
+  color: #ffffff !important; /* Force white text */
+}
+
+.footer a:hover {
+  color: #e8f5e8 !important; /* Light green on hover */
+}
+
+/* Page content wrapper for perfect alignment */
+.page-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 25px 20px; /* Increased padding */
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  border: 1px solid #e0e0e0;
+  margin-bottom: 25px; /* Increased margin */
+}
+
+/* Main content adjustment - normal padding since footer is at page end */
+.main-content {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+  padding-top: 80px; /* Account for fixed header */
+  padding-bottom: 40px; /* Normal padding */
+  background: #f8f9fa;
+  min-height: calc(100vh - 120px); /* Ensure minimum height for content */
+}
+
+/* Dashboard layout with perfect sidebar alignment */
+.dashboard-root {
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 120px); /* Adjusted for normal layout */
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  display: flex;
+  margin: 25px auto; /* Increased margin */
+  max-width: 1400px;
+  z-index: 1;
+  padding: 25px; /* Increased padding */
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+/* Sidebar styling - Perfect alignment without gaps */
+.sidebar {
+  position: fixed;
+  top: 90px; /* Adjusted for increased header */
+  left: 0; /* Full stretch from left */
+  height: calc(100vh - 120px); /* Adjusted for normal layout */
+  width: 250px; /* Fixed width */
+  background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,249,250,0.95) 100%);
+  backdrop-filter: blur(10px);
+  color: var(--sidebar-text);
+  z-index: 1030;
+  border-right: 1px solid rgba(76, 175, 80, 0.1); /* Only right border */
+  border-radius: 0; /* Remove border radius */
+  transition: all 0.3s ease;
+  overflow-y: auto;
+  box-shadow: 2px 0 16px rgba(76,175,80,0.08);
+  flex-shrink: 0;
+  padding: 25px 20px; /* Increased padding */
+}
+
+.sidebar-logo {
+  font-size: 1.3rem; /* Increased size */
+  font-weight: 600;
+  color: #4caf50;
+  margin-bottom: 25px; /* Increased margin */
+  padding-bottom: 20px; /* Increased padding */
+  border-bottom: 1px solid rgba(76, 175, 80, 0.1);
+}
+
+.sidebar .nav-link {
+  color: #333;
+  font-weight: 500;
+  font-size: 1rem; /* Increased size */
+  border-radius: 8px;
+  margin: 6px 0; /* Increased margin */
+  padding: 14px 18px; /* Increased padding */
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  border: none;
+  background: transparent;
+  text-align: left;
+  width: 100%;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+  background: rgba(76, 175, 80, 0.1);
+  color: #4caf50;
+  transform: translateX(5px);
+}
+
+.sidebar .nav-link i {
+  width: 22px; /* Increased width */
+  margin-right: 12px; /* Increased margin */
+  font-size: 1.1rem; /* Increased size */
+}
+
+/* Dashboard content styling - Perfect alignment with sidebar */
+.dashboard-content {
+  margin-left: 250px; /* Match sidebar width exactly */
+  min-height: calc(100vh - 120px); /* Adjusted for normal layout */
+  padding: 25px; /* Increased padding */
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.02);
+  border-radius: 0 12px 12px 0; /* Only right side rounded */
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 1;
+  position: relative;
+  width: calc(100% - 250px); /* Match sidebar width exactly */
+  flex-grow: 1;
+  border: 1px solid rgba(76, 175, 80, 0.1);
+  border-left: none; /* Remove left border to connect with sidebar */
+}
+
+/* Topbar styling for perfect alignment */
+.topbar {
+  background: linear-gradient(90deg, #ffffff 0%, #f8f9fa 100%);
+  border-bottom: 1px solid rgba(76, 175, 80, 0.1);
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.05);
+  backdrop-filter: blur(5px);
+  border-radius: 0 12px 0 0; /* Only top right rounded */
+  margin-bottom: 25px; /* Increased margin */
+  padding: 25px; /* Increased padding */
+}
+
+.topbar h4 {
+  font-size: 1.4rem; /* Increased size */
+  font-weight: 600;
+}
+
+.search-box {
+  background: #f8f9fa;
+  border-radius: 20px;
+  padding: 10px 18px; /* Increased padding */
+  border: 1px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  min-width: 220px; /* Increased width */
+}
+
+.search-box input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  font-size: 1rem; /* Increased size */
+}
+
+.profile-img {
+  width: 40px; /* Increased size */
+  height: 40px; /* Increased size */
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #4caf50;
+}
+
+/* Card enhancements for perfect alignment */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: #ffffff;
+  margin-bottom: 25px; /* Increased margin */
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.card-body {
+  padding: 1.8rem; /* Increased padding */
+}
+
+.card-header {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-bottom: 1px solid rgba(76, 175, 80, 0.1);
+  border-radius: 12px 12px 0 0;
+  padding: 1.2rem 1.8rem; /* Increased padding */
+}
+
+.card-title {
+  font-size: 1.2rem; /* Increased size */
+  font-weight: 600;
+}
+
+/* Button styling for consistency */
+.btn-primary-custom {
+  background: #4caf50;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px; /* Increased padding */
+  font-weight: 500;
+  font-size: 1rem; /* Increased size */
+  transition: all 0.3s ease;
+}
+
+.btn-primary-custom:hover {
+  background: #45a049;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+/* Form styling for consistency */
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  padding: 12px 18px; /* Increased padding */
+  font-size: 1rem; /* Increased size */
+  transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+}
+
+/* Badge styling */
+.badge {
+  font-size: 0.8rem; /* Increased size */
+  padding: 0.4em 0.75em; /* Increased padding */
+  border-radius: 6px;
+}
+
+/* Container alignment */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px; /* Increased padding */
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+  .dashboard-root {
+    margin: 15px 20px; /* Increased margin */
+    padding: 20px; /* Increased padding */
+    max-width: none;
+    min-height: calc(100vh - 150px); /* Adjusted for mobile */
+  }
+
+  .sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+    border-right: none;
+    box-shadow: none;
+    background: var(--sidebar-bg);
+    top: 0;
+    left: 0;
+    transform: none;
+    border-radius: 12px;
+    margin-bottom: 25px; /* Increased margin */
+    padding: 20px; /* Increased padding */
+  }
+
+  .dashboard-content {
+    margin-left: 0;
+    width: 100%;
+    border-radius: 12px; /* Full border radius on mobile */
+    border: 1px solid rgba(76, 175, 80, 0.1);
+    min-height: calc(100vh - 150px); /* Adjusted for mobile */
+  }
+
+  .page-content {
+    margin: 0 20px 25px 20px; /* Increased margin */
+    padding: 20px; /* Increased padding */
+  }
+
+  .search-box {
+    min-width: 180px; /* Increased width */
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-custom {
+    padding: 0 15px;
+    height: 65px; /* Slightly reduced for mobile */
+  }
+
+  .main-content {
+    padding-top: 75px; /* Adjusted for mobile header */
+    padding-bottom: 40px; /* Normal padding */
+  }
+
+  .page-content {
+    margin: 0 15px 25px 15px; /* Increased margin */
+    padding: 20px; /* Increased padding */
+  }
+
+  .sidebar {
+    padding: 20px 15px; /* Increased padding */
+  }
+}
+
+/* Loading spinner */
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #4caf50;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* CSS Variables */
+:root {
+  --main-bg: #F6F8F9;
+  --sidebar-text: #212121;
+  --sidebar-bg: #f8f9fa;
+  --primary-color: #4caf50;
+  --secondary-color: #2c3e50;
+} 
