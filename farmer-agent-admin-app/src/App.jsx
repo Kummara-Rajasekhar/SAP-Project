@@ -6,6 +6,8 @@ import Services from './pages/Services';
 import Contact from './pages/Contact';
 import Login from './components/Login';
 import Profile from './pages/Profile';
+import LoginSelection from './pages/LoginSelection';
+import JoinUs from './pages/JoinUs';
 import FarmerDashboard from './components/FarmerDashboard';
 import AgentDashboard from './components/AgentDashboard';
 import AdminDashboard from './components/AdminDashboard';
@@ -256,6 +258,8 @@ function App() {
                 <Route path="/services" element={<Services />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/join-us" element={<JoinUs />} />
+                <Route path="/login-selection" element={<LoginSelection />} />
                 <Route path="/farmer-login" element={<FarmerLogin />} />
                 <Route path="/farmer-signup" element={<FarmerSignup />} />
                 <Route path="/agent-login" element={<AgentLogin />} />

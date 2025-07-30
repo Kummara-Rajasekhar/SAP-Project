@@ -42,7 +42,7 @@ const Login = ({ onLogin }) => {
       if (user && formData.password === 'password') {
         localStorage.setItem('user', JSON.stringify(user));
         if (onLogin) onLogin(user);
-        navigate(`/${user.role}-dashboard`);
+        navigate('/'); // Navigate to home page instead of dashboard
       } else {
         alert('Invalid credentials. Use: farmer@test.com, agent@test.com, or admin@test.com with password: password');
       }
@@ -70,7 +70,7 @@ const Login = ({ onLogin }) => {
 
       localStorage.setItem('user', JSON.stringify(newUser));
       if (onLogin) onLogin(newUser);
-      navigate(`/${newUser.role}-dashboard`);
+      navigate('/'); // Navigate to home page instead of dashboard
     }
   };
 
