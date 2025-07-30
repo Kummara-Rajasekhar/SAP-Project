@@ -255,14 +255,33 @@ export default function Home() {
                         </div>
                       </div>
                     </div>
-                    <div className="user-stats">
-                      <div className="stat-item">
-                        <span className="stat-label">User ID</span>
-                        <span className="stat-value">{user.id || 'N/A'}</span>
+                    <div className="profile-details-section">
+                      <div className="profile-detail-item">
+                        <div className="detail-icon">
+                          <i className="fas fa-id-card"></i>
+                        </div>
+                        <div className="detail-content">
+                          <span className="detail-label">Account Type</span>
+                          <span className="detail-value">{user.role.charAt(0).toUpperCase() + user.role.slice(1)} Account</span>
+                        </div>
                       </div>
-                      <div className="stat-item">
-                        <span className="stat-label">Status</span>
-                        <span className="status-badge">Active</span>
+                      <div className="profile-detail-item">
+                        <div className="detail-icon">
+                          <i className="fas fa-clock"></i>
+                        </div>
+                        <div className="detail-content">
+                          <span className="detail-label">Last Login</span>
+                          <span className="detail-value">Today</span>
+                        </div>
+                      </div>
+                      <div className="profile-detail-item">
+                        <div className="detail-icon">
+                          <i className="fas fa-shield-alt"></i>
+                        </div>
+                        <div className="detail-content">
+                          <span className="detail-label">Account Status</span>
+                          <span className="detail-value status-active">Active & Verified</span>
+                        </div>
                       </div>
                     </div>
                     <div className="welcome-actions">
