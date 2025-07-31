@@ -1,31 +1,49 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext, ToastContext } from '../App';
+import { AuthContext } from '../context/AuthContext';
+import { ToastContext } from '../context/ToastContext';
 import 'animate.css';
 
 export default function FarmerSignup() {
-  const [form, setForm] = useState({
-    name: '', age: '', gender: '', phone: '', email: '', password: '', confirmPassword: '', region: '', address: '', acres: '', cultivationStartDate: '', preferredLanguage: '', soilType: ''
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    password: '',
+    confirmPassword: '',
+    region: '',
+    farmSize: '',
+    cropType: '',
+    experience: ''
   });
-  const navigate = useNavigate();
-  const { setUser } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
   const { showToast } = useContext(ToastContext);
+  const navigate = useNavigate();
 
-  const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
+  // Ensure page scrolls to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (form.password !== form.confirmPassword) {
-      alert('Passwords do not match!');
+    if (formData.password !== formData.confirmPassword) {
+      showToast('Passwords do not match!', 'error');
       return;
     }
-    const farmerId = 'F' + Math.floor(Math.random() * 10000).toString().padStart(4, '0');
-    // Mock agent assignment
-    const agent = form.region === 'North Region' ? 'Sarah Agent' : 'Regional Agent';
-    const user = { ...form, id: farmerId, role: 'farmer', agent };
-    setUser(user); // user is the signed-up user object
-    localStorage.setItem('user', JSON.stringify(user));
-    showToast('Signup successful! Welcome to AgriConnect.', 'success');
+    
+    // Simulate successful signup
+    const user = {
+      id: 'F' + Date.now(),
+      name: `${formData.firstName} ${formData.lastName}`,
+      role: 'farmer',
+      email: formData.email,
+      region: formData.region
+    };
+    
+    login(user); // user is the signed-up user object
+    showToast('Account created successfully! Welcome to AgriConnect!', 'success');
     navigate('/');
   };
 
@@ -34,46 +52,45 @@ export default function FarmerSignup() {
   };
 
   return (
-    <div className="signup-page">
+    <div className="signup-page farmer-signup">
       <div className="container-fluid">
         <div className="row min-vh-100">
-          {/* Left Side - Branding & Info */}
-          <div className="col-lg-6 d-none d-lg-flex signup-brand-section">
-            <div className="brand-content">
-              <div className="brand-header animate__animated animate__fadeInDown">
-                <div className="logo-container d-inline-flex align-items-center mb-4">
-                  <div className="logo-icon me-3">
-                    <i className="fas fa-seedling"></i>
-                  </div>
-                  <div className="brand-text text-start">
-                    <h2 className="brand-title mb-0">AgriConnect</h2>
-                    <p className="brand-tagline mb-0">Smart Farming Solutions</p>
-                  </div>
+          {/* Left Side - Simple Info Section */}
+          <div className="col-lg-6 d-none d-lg-flex signup-info-section">
+            <div className="info-content text-center">
+              <div className="info-header animate__animated animate__fadeInDown">
+                {/* Simple Logo */}
+                <div className="simple-logo mb-4">
+                  <i className="fas fa-seedling text-success" style={{ fontSize: '3rem' }}></i>
                 </div>
-                <h1 className="display-4 fw-bold text-white mb-4">
-                  Join AgriConnect as a Farmer
+                
+                {/* Main Heading */}
+                <h1 className="display-4 fw-bold text-dark mb-4">
+                  Join as a Farmer
                 </h1>
-                <p className="lead text-white-50 mb-5">
+                
+                {/* Description Text */}
+                <p className="lead text-muted mb-5">
                   Create your digital farming profile and unlock access to modern agricultural tools and services.
                 </p>
                 
-                {/* Role-specific benefits */}
-                <div className="benefits-list">
-                  <div className="benefit-item animate__animated animate__fadeInLeft" style={{ animationDelay: '0.2s' }}>
-                    <i className="fas fa-chart-line text-success me-3"></i>
-                    <span>Get better prices for your produce</span>
+                {/* Simple Benefits */}
+                <div className="simple-benefits">
+                  <div className="simple-benefit-item mb-3">
+                    <i className="fas fa-check-circle text-success me-2"></i>
+                    <span className="text-dark">Better prices for your produce</span>
                   </div>
-                  <div className="benefit-item animate__animated animate__fadeInLeft" style={{ animationDelay: '0.4s' }}>
-                    <i className="fas fa-cloud-sun text-warning me-3"></i>
-                    <span>Receive weather alerts and crop advice</span>
+                  <div className="simple-benefit-item mb-3">
+                    <i className="fas fa-check-circle text-success me-2"></i>
+                    <span className="text-dark">Weather alerts and crop advice</span>
                   </div>
-                  <div className="benefit-item animate__animated animate__fadeInLeft" style={{ animationDelay: '0.6s' }}>
-                    <i className="fas fa-comments text-primary me-3"></i>
-                    <span>Connect with agricultural experts</span>
+                  <div className="simple-benefit-item mb-3">
+                    <i className="fas fa-check-circle text-success me-2"></i>
+                    <span className="text-dark">Connect with experts</span>
                   </div>
-                  <div className="benefit-item animate__animated animate__fadeInLeft" style={{ animationDelay: '0.8s' }}>
-                    <i className="fas fa-mobile-alt text-info me-3"></i>
-                    <span>Monitor your crops digitally</span>
+                  <div className="simple-benefit-item mb-3">
+                    <i className="fas fa-check-circle text-success me-2"></i>
+                    <span className="text-dark">Monitor crops digitally</span>
                   </div>
                 </div>
               </div>
@@ -104,44 +121,46 @@ export default function FarmerSignup() {
                 </div>
               </div>
 
-              <div className="signup-card">
-                <form onSubmit={handleSubmit} className="signup-form">
-                  {/* Personal Information Section */}
-                  <div className="form-section mb-4">
-                    <h5 className="section-title">
-                      <i className="fas fa-user me-2 text-success"></i>
-                      Personal Information
-                    </h5>
-                    <div className="row">
-                      <div className="col-md-6 mb-3">
-                        <label className="form-label">Full Name</label>
-                        <input type="text" className="form-control" name="name" value={form.name} onChange={handleChange} required />
-                      </div>
-                      <div className="col-md-3 mb-3">
-                        <label className="form-label">Age</label>
-                        <input type="number" className="form-control" name="age" value={form.age} onChange={handleChange} required />
-                      </div>
-                      <div className="col-md-3 mb-3">
-                        <label className="form-label">Gender</label>
-                        <select className="form-control" name="gender" value={form.gender} onChange={handleChange} required>
-                          <option value="">Select</option>
-                          <option value="male">Male</option>
-                          <option value="female">Female</option>
-                          <option value="other">Other</option>
-                        </select>
-                      </div>
+              <form onSubmit={handleSubmit} className="signup-form">
+                {/* Personal Information Section */}
+                <div className="form-section mb-4">
+                  <h5 className="section-title">
+                    <i className="fas fa-user me-2 text-success"></i>
+                    Personal Information
+                  </h5>
+                  <div className="row">
+                    <div className="col-md-6 mb-3">
+                      <label className="form-label">
+                        <i className="fas fa-user me-2 text-success"></i>
+                        Full Name
+                      </label>
+                      <input type="text" className="form-control" name="name" value={formData.firstName} onChange={e => setFormData({ ...formData, firstName: e.target.value })} placeholder="Enter your full name" required />
                     </div>
-                    <div className="row">
-                      <div className="col-md-6 mb-3">
-                        <label className="form-label">Phone Number</label>
-                        <input type="tel" className="form-control" name="phone" value={form.phone} onChange={handleChange} required />
-                      </div>
-                      <div className="col-md-6 mb-3">
-                        <label className="form-label">Email</label>
-                        <input type="email" className="form-control" name="email" value={form.email} onChange={handleChange} required />
-                      </div>
+                    <div className="col-md-6 mb-3">
+                      <label className="form-label">
+                        <i className="fas fa-user me-2 text-success"></i>
+                        Last Name
+                      </label>
+                      <input type="text" className="form-control" name="lastName" value={formData.lastName} onChange={e => setFormData({ ...formData, lastName: e.target.value })} placeholder="Enter your last name" required />
                     </div>
                   </div>
+                  <div className="row">
+                    <div className="col-md-6 mb-3">
+                      <label className="form-label">
+                        <i className="fas fa-phone me-2 text-primary"></i>
+                        Phone Number
+                      </label>
+                      <input type="tel" className="form-control" name="phone" value={formData.phone} onChange={e => setFormData({ ...formData, phone: e.target.value })} placeholder="Enter phone number" required />
+                    </div>
+                    <div className="col-md-6 mb-3">
+                      <label className="form-label">
+                        <i className="fas fa-envelope me-2 text-danger"></i>
+                        Email Address
+                      </label>
+                      <input type="email" className="form-control" name="email" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} placeholder="Enter email address" required />
+                    </div>
+                  </div>
+                </div>
 
                   {/* Account Security Section */}
                   <div className="form-section mb-4">
@@ -152,11 +171,11 @@ export default function FarmerSignup() {
                     <div className="row">
                       <div className="col-md-6 mb-3">
                         <label className="form-label">Password</label>
-                        <input type="password" className="form-control" name="password" value={form.password} onChange={handleChange} required />
+                        <input type="password" className="form-control" name="password" value={formData.password} onChange={e => setFormData({ ...formData, password: e.target.value })} required />
                       </div>
                       <div className="col-md-6 mb-3">
                         <label className="form-label">Confirm Password</label>
-                        <input type="password" className="form-control" name="confirmPassword" value={form.confirmPassword} onChange={handleChange} required />
+                        <input type="password" className="form-control" name="confirmPassword" value={formData.confirmPassword} onChange={e => setFormData({ ...formData, confirmPassword: e.target.value })} required />
                       </div>
                     </div>
                   </div>
@@ -170,7 +189,7 @@ export default function FarmerSignup() {
                     <div className="row">
                       <div className="col-md-6 mb-3">
                         <label className="form-label">Region/Constituency</label>
-                        <select className="form-control" name="region" value={form.region} onChange={handleChange} required>
+                        <select className="form-control" name="region" value={formData.region} onChange={e => setFormData({ ...formData, region: e.target.value })} required>
                           <option value="">Select</option>
                           <option value="North Region">North Region</option>
                           <option value="South Region">South Region</option>
@@ -179,40 +198,24 @@ export default function FarmerSignup() {
                         </select>
                       </div>
                       <div className="col-md-6 mb-3">
-                        <label className="form-label">Address</label>
-                        <input type="text" className="form-control" name="address" value={form.address} onChange={handleChange} required />
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-4 mb-3">
-                        <label className="form-label">Acres of Land</label>
-                        <input type="number" className="form-control" name="acres" value={form.acres} onChange={handleChange} required />
-                      </div>
-                      <div className="col-md-4 mb-3">
-                        <label className="form-label">Cultivation Start Date</label>
-                        <input type="date" className="form-control" name="cultivationStartDate" value={form.cultivationStartDate} onChange={handleChange} required />
-                      </div>
-                      <div className="col-md-4 mb-3">
-                        <label className="form-label">Preferred Language</label>
-                        <select className="form-control" name="preferredLanguage" value={form.preferredLanguage} onChange={handleChange} required>
-                          <option value="">Select</option>
-                          <option value="English">English</option>
-                          <option value="Hindi">Hindi</option>
-                          <option value="Telugu">Telugu</option>
-                          <option value="Tamil">Tamil</option>
-                        </select>
+                        <label className="form-label">Farm Size (Acres)</label>
+                        <input type="number" className="form-control" name="farmSize" value={formData.farmSize} onChange={e => setFormData({ ...formData, farmSize: e.target.value })} required />
                       </div>
                     </div>
                     <div className="row">
                       <div className="col-md-6 mb-3">
-                        <label className="form-label">Type of Soil</label>
-                        <select className="form-control" name="soilType" value={form.soilType} onChange={handleChange} required>
+                        <label className="form-label">Preferred Crop Type</label>
+                        <select className="form-control" name="cropType" value={formData.cropType} onChange={e => setFormData({ ...formData, cropType: e.target.value })} required>
                           <option value="">Select</option>
-                          <option value="Clay">Clay</option>
-                          <option value="Sandy">Sandy</option>
-                          <option value="Loamy">Loamy</option>
-                          <option value="Red">Red</option>
+                          <option value="Wheat">Wheat</option>
+                          <option value="Rice">Rice</option>
+                          <option value="Maize">Maize</option>
+                          <option value="Sugarcane">Sugarcane</option>
                         </select>
+                      </div>
+                      <div className="col-md-6 mb-3">
+                        <label className="form-label">Years of Experience</label>
+                        <input type="number" className="form-control" name="experience" value={formData.experience} onChange={e => setFormData({ ...formData, experience: e.target.value })} required />
                       </div>
                     </div>
                   </div>
@@ -230,7 +233,6 @@ export default function FarmerSignup() {
                       Login as Farmer
                     </a>
                   </p>
-                </div>
               </div>
             </div>
           </div>

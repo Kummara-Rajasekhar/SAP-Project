@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../App';
+import { AuthContext } from '../context/AuthContext';
 import 'animate.css';
 
 export default function Home() {
@@ -151,207 +151,54 @@ export default function Home() {
 
   return (
     <div className="page-content">
-      {/* Hero Section */}
-      <section className="hero-section py-5 position-relative overflow-hidden">
-        {/* Animated Background Elements */}
-        <div className="hero-bg-animation">
-          <div className="floating-shape shape-1"></div>
-          <div className="floating-shape shape-2"></div>
-          <div className="floating-shape shape-3"></div>
-          <div className="floating-shape shape-4"></div>
-          <div className="floating-shape shape-5"></div>
-          <div className="floating-shape shape-6"></div>
-        </div>
-        
-        <div className="container position-relative">
-          <div className="row align-items-center min-vh-100">
-            <div className="col-lg-6">
-              <div className="hero-content">
-                {/* Logo and Brand */}
-                <div className="brand-section animate__animated animate__fadeInDown">
-                  <div className="logo-container">
-                    <div className="logo-icon">
-                      <i className="fas fa-seedling"></i>
-                    </div>
-                    <div className="brand-text">
-                      <h2 className="brand-title">AgriConnect</h2>
-                      <p className="brand-tagline">Smart Farming Solutions</p>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Animated Badge */}
-                <div className="hero-badge animate__animated animate__fadeInDown animate__delay-1s">
-                  <span className="badge bg-success-subtle text-success px-4 py-3 rounded-pill">
-                    <i className="fas fa-star me-2"></i>
-                    <span className="badge-text">Trusted by 50,000+ Farmers</span>
-                  </span>
-                </div>
-                
-                {/* Main Title with Enhanced Typography */}
-                <h1 className="hero-title animate__animated animate__fadeInUp">
-                  <span className="title-line-1">Connecting</span>
-                  <span className="title-gradient">Farmers, Experts & Buyers</span>
-                  <span className="title-line-2">for a Smarter</span>
-                  <span className="title-line-3">Agricultural Future</span>
-                </h1>
-                
-                {/* Animated Description with Better Typography */}
-                <p className="hero-description animate__animated animate__fadeInUp animate__delay-1s">
-                  Empowering Indian farmers with cutting-edge technology, market insights, and expert guidance. 
-                  Join thousands of farmers who are already benefiting from our comprehensive agricultural platform.
-                </p>
-                
-                {/* Enhanced Feature Highlights */}
-                <div className="hero-features animate__animated animate__fadeInUp animate__delay-2s">
-                  <div className="row g-3 mb-4">
-                    <div className="col-6">
-                      <div className="feature-highlight">
-                        <div className="feature-icon-wrapper">
-                          <i className="fas fa-chart-line"></i>
-                        </div>
-                        <span>Smart Analytics</span>
-                      </div>
-                    </div>
-                    <div className="col-6">
-                      <div className="feature-highlight">
-                        <div className="feature-icon-wrapper">
-                          <i className="fas fa-mobile-alt"></i>
-                        </div>
-                        <span>Mobile App</span>
-                      </div>
-                    </div>
-                    <div className="col-6">
-                      <div className="feature-highlight">
-                        <div className="feature-icon-wrapper">
-                          <i className="fas fa-cloud-sun"></i>
-                        </div>
-                        <span>Weather Updates</span>
-                      </div>
-                    </div>
-                    <div className="col-6">
-                      <div className="feature-highlight">
-                        <div className="feature-icon-wrapper">
-                          <i className="fas fa-handshake"></i>
-                        </div>
-                        <span>Direct Connect</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* User Welcome Card or CTA Buttons */}
-                {user ? (
-                  <div className="user-welcome-card animate__animated animate__fadeInUp animate__delay-3s">
-                    <div className="welcome-header">
-                      <div className="user-avatar">
-                        <i className="fas fa-user-circle"></i>
-                      </div>
-                      <div className="user-info">
-                        <h5 className="welcome-text">Welcome back, {user.name}!</h5>
-                        <div className="user-role">
-                          <i className="fas fa-user-tag"></i>
-                          <span>{user.role.charAt(0).toUpperCase() + user.role.slice(1)}</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="profile-details-section">
-                      <div className="profile-detail-item">
-                        <div className="detail-icon">
-                          <i className="fas fa-id-card"></i>
-                        </div>
-                        <div className="detail-content">
-                          <span className="detail-label">Account Type</span>
-                          <span className="detail-value">{user.role.charAt(0).toUpperCase() + user.role.slice(1)} Account</span>
-                        </div>
-                      </div>
-                      <div className="profile-detail-item">
-                        <div className="detail-icon">
-                          <i className="fas fa-clock"></i>
-                        </div>
-                        <div className="detail-content">
-                          <span className="detail-label">Last Login</span>
-                          <span className="detail-value">Today</span>
-                        </div>
-                      </div>
-                      <div className="profile-detail-item">
-                        <div className="detail-icon">
-                          <i className="fas fa-shield-alt"></i>
-                        </div>
-                        <div className="detail-content">
-                          <span className="detail-label">Account Status</span>
-                          <span className="detail-value status-active">Active & Verified</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="welcome-actions">
-                      <button 
-                        className="btn btn-primary btn-lg"
-                        onClick={() => navigate(`/${user.role}-dashboard`)}
-                      >
-                        <i className="fas fa-tachometer-alt me-2"></i>
-                        Go to Dashboard
-                      </button>
-                      <button 
-                        className="btn btn-outline-secondary btn-lg"
-                        onClick={() => navigate('/profile')}
-                      >
-                        <i className="fas fa-user me-2"></i>
-                        Profile
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="hero-cta animate__animated animate__fadeInUp animate__delay-3s">
-                    <button className="btn btn-primary btn-lg me-3" onClick={() => navigate('/login-selection')}>
-                      <i className="fas fa-sign-in-alt me-2"></i>
-                      Get Started
-                    </button>
-                    <button className="btn btn-outline-primary btn-lg" onClick={() => navigate('/about')}>
-                      <i className="fas fa-info-circle me-2"></i>
-                      Learn More
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-            
-            {/* Hero Image with Enhanced Animations */}
-            <div className="col-lg-6">
-              <div className="hero-image-wrapper animate__animated animate__fadeInRight animate__delay-2s">
-                <div className="hero-image-container">
+      {/* Hero Image Section - Full Width */}
+      {/* <section className="hero-image-section py-5 position-relative overflow-hidden">
+        <div className="container-fluid">
+          <div className="row justify-content-center">
+            <div className="col-12">
+              <div className="hero-image-wrapper animate__animated animate__fadeIn animate__delay-1s">
+                <div className="hero-image-container text-center">
                   <img 
-                    src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
-                    alt="Modern Agriculture" 
+                    src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" 
+                    alt="Farmers and Agricultural Professionals Connecting in Fields" 
                     className="hero-main-image"
+                    style={{
+                      borderRadius: '25px',
+                      boxShadow: '0 25px 50px rgba(0,0,0,0.2)',
+                      border: '6px solid #ffffff',
+                      objectFit: 'cover',
+                      width: '100%',
+                      height: '600px',
+                      maxWidth: '1200px'
+                    }}
                   />
                   
-                  {/* Enhanced Floating Cards */}
-                  <div className="floating-card card-1 animate__animated animate__fadeInUp animate__delay-3s">
+              
+                  <div className="floating-card card-1 animate__animated animate__fadeInUp animate__delay-2s">
                     <div className="card-icon">
-                      <i className="fas fa-chart-line"></i>
+                      <i className="fas fa-handshake"></i>
                     </div>
                     <div className="card-content">
-                      <span className="card-title">Smart Analytics</span>
-                      <span className="card-subtitle">Real-time insights</span>
+                      <span className="card-title">Field Partnership</span>
+                      <span className="card-subtitle">Farmers & Experts</span>
                     </div>
                   </div>
-                  <div className="floating-card card-2 animate__animated animate__fadeInUp animate__delay-4s">
+                  <div className="floating-card card-2 animate__animated animate__fadeInUp animate__delay-3s">
                     <div className="card-icon">
-                      <i className="fas fa-mobile-alt"></i>
+                      <i className="fas fa-clipboard-check"></i>
                     </div>
                     <div className="card-content">
-                      <span className="card-title">Mobile App</span>
-                      <span className="card-subtitle">Available on all devices</span>
+                      <span className="card-title">Crop Consultation</span>
+                      <span className="card-subtitle">Expert guidance</span>
                     </div>
                   </div>
-                  <div className="floating-card card-3 animate__animated animate__fadeInUp animate__delay-5s">
+                  <div className="floating-card card-3 animate__animated animate__fadeInUp animate__delay-4s">
                     <div className="card-icon">
-                      <i className="fas fa-cloud-sun"></i>
+                      <i className="fas fa-seedling"></i>
                     </div>
                     <div className="card-content">
-                      <span className="card-title">Weather Updates</span>
-                      <span className="card-subtitle">Live forecasts</span>
+                      <span className="card-title">Quality Seeds</span>
+                      <span className="card-subtitle">Best products</span>
                     </div>
                   </div>
                 </div>
@@ -359,7 +206,68 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </section> */}
+
+      {/* AgriConnect Logo and Description Section - Combined Layout */}
+      <section className="agriconnect-showcase py-5">
+        <div className="container">
+          <div className="agriconnect-unified-section">
+            {/* Logo Section */}
+            <div className="logo-section">
+              <div className="logo-card">
+                <div className="logo-icon-large">
+                  <i className="fas fa-seedling"></i>
+                </div>
+                <div className="logo-text">
+                  <h1 className="logo-title">AgriConnect</h1>
+                  <p className="logo-tagline">Smart Farming Solutions</p>
+                </div>
+              </div>
+              <div className="trust-badge">
+                <i className="fas fa-star"></i>
+                <span>Trusted by 50,000+ Farmers</span>
+              </div>
+            </div>
+            
+            {/* Description Section */}
+            <div className="description-section">
+              <div className="description-content">
+                <h2 className="description-title">
+                  <span className="title-line">Connecting</span>
+                  <span className="title-highlight">Farmers, Experts & Buyers</span>
+                  <span className="title-line">for a Smarter</span>
+                  <span className="title-line">Agricultural Future</span>
+                </h2>
+                <p className="description-text">
+                  Empowering Indian farmers with cutting-edge technology, market insights, and expert guidance. 
+                  Join thousands of farmers who are already benefiting from our comprehensive agricultural platform.
+                </p>
+                <div className="description-features">
+                  <div className="feature-item">
+                    <i className="fas fa-chart-line"></i>
+                    <span>Smart Analytics</span>
+                  </div>
+                  <div className="feature-item">
+                    <i className="fas fa-mobile-alt"></i>
+                    <span>Mobile App</span>
+                  </div>
+                  <div className="feature-item">
+                    <i className="fas fa-cloud-sun"></i>
+                    <span>Weather Updates</span>
+                  </div>
+                  <div className="feature-item">
+                    <i className="fas fa-handshake"></i>
+                    <span>Direct Connect</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
+
+      {/* Content Section - All Details Below Image */}
+      {/*  */}
 
       {/* Statistics Section */}
       <section className="stats-section py-5 bg-light">
@@ -429,11 +337,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Live Widgets Section */}
+      {/* Live Widgets Section - Fixed Heading Color */}
       <section className="widgets-section py-5">
         <div className="container">
           <div className="text-center mb-5">
-            <h2 className="display-5 fw-bold mb-3">Live Updates</h2>
+            <h2 className="display-5 fw-bold mb-3 text-dark">Live Updates</h2>
             <p className="lead text-muted">Stay informed with real-time information</p>
           </div>
           <div className="row">

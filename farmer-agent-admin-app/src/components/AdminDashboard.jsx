@@ -1,19 +1,24 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ToastContext } from '../App';
+import { ToastContext } from '../context/ToastContext';
+import { AuthContext } from '../context/AuthContext';
 
 const sidebarLinks = [
   { id: 'dashboard', icon: 'fas fa-home', label: 'Dashboard' },
-  { id: 'agents', icon: 'fas fa-user-tie', label: 'Agent Management' },
+  { id: 'users', icon: 'fas fa-users', label: 'User Management' },
   { id: 'analytics', icon: 'fas fa-chart-bar', label: 'Analytics' },
-  { id: 'revenue', icon: 'fas fa-dollar-sign', label: 'Revenue' },
-  { id: 'reports', icon: 'fas fa-file-alt', label: 'Reports' },
   { id: 'settings', icon: 'fas fa-cog', label: 'Settings' },
+  { id: 'support', icon: 'fas fa-headset', label: 'Support' },
+  { id: 'reports', icon: 'fas fa-file-alt', label: 'Reports' },
+  { id: 'account', icon: 'fas fa-user', label: 'My Account' },
   { id: 'help', icon: 'fas fa-question-circle', label: 'Help & Support' },
 ];
 
-const AdminDashboard = ({ user, onLogout }) => {
+const AdminDashboard = () => {
   const navigate = useNavigate();
+  const { user, logout } = useContext(AuthContext);
+  const { showToast } = useContext(ToastContext);
+
   if (!user) {
     useEffect(() => { navigate('/admin-login'); }, [navigate]);
     return <div className="d-flex justify-content-center align-items-center" style={{height: '80vh'}}><div className="loading-spinner"></div></div>;
@@ -38,7 +43,6 @@ const AdminDashboard = ({ user, onLogout }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('date');
   const [filterStatus, setFilterStatus] = useState('all');
-  const { showToast } = useContext(ToastContext);
 
   const handleQuickStatClick = (statType) => {
     showToast(`Viewing ${statType} details`, 'info');
@@ -148,7 +152,7 @@ const AdminDashboard = ({ user, onLogout }) => {
               </button>
               <ul className="dropdown-menu">
                 <li><button className="dropdown-item" onClick={() => navigate('/profile')}>My Profile</button></li>
-                <li><button className="dropdown-item" onClick={onLogout}>Logout</button></li>
+                <li><button className="dropdown-item" onClick={logout}>Logout</button></li>
               </ul>
             </div>
           </div>

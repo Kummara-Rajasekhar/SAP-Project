@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ToastContext } from '../App';
+import { ToastContext } from '../context/ToastContext';
+import { AuthContext } from '../context/AuthContext';
 
 const sidebarLinks = [
   { id: 'dashboard', icon: 'fas fa-home', label: 'Dashboard' },
@@ -14,8 +15,9 @@ const sidebarLinks = [
   { id: 'help', icon: 'fas fa-question-circle', label: 'Help & Support' },
 ];
 
-const FarmerDashboard = ({ user, onLogout }) => {
+const FarmerDashboard = () => {
   const navigate = useNavigate();
+  const { user, logout } = useContext(AuthContext);
   const [activeSidebar, setActiveSidebar] = useState('dashboard');
   const [activeTab, setActiveTab] = useState('overview');
   const [cropForm, setCropForm] = useState({ cropName: '', startDate: '', endDate: '', quantity: '', price: '', status: 'pending' });
@@ -35,7 +37,6 @@ const FarmerDashboard = ({ user, onLogout }) => {
     humidity: '65%',
     windSpeed: '12 km/h'
   });
-  const { showToast } = useContext(ToastContext);
   const [quickStats, setQuickStats] = useState({
     totalCrops: 8,
     earnings: 45000,
@@ -159,7 +160,7 @@ const FarmerDashboard = ({ user, onLogout }) => {
               </button>
               <ul className="dropdown-menu">
                 <li><button className="dropdown-item" onClick={() => navigate('/profile')}>My Profile</button></li>
-                <li><button className="dropdown-item" onClick={onLogout}>Logout</button></li>
+                <li><button className="dropdown-item" onClick={logout}>Logout</button></li>
               </ul>
             </div>
           </div>
@@ -1751,10 +1752,33 @@ const FarmerDashboard = ({ user, onLogout }) => {
                       <span className="badge bg-success">Available</span>
                     </div>
                     <div className="d-flex justify-content-center gap-2">
-                      <button className="btn btn-sm btn-primary-custom">
+                      <button 
+                        className="btn btn-sm btn-primary-custom"
+                        onClick={() => {
+                          showToast('Initiating call to Rajesh Kumar...', 'info');
+                          // Simulate call initiation with more realistic timing
+                          setTimeout(() => {
+                            showToast('Call connected to Rajesh Kumar (+91 98765 43210)', 'success');
+                          }, 2000);
+                        }}
+                      >
                         <i className="fas fa-phone me-1"></i>Call
                       </button>
-                      <button className="btn btn-sm btn-outline-success">
+                      <button 
+                        className="btn btn-sm btn-outline-success"
+                        onClick={() => {
+                          navigate('/message', { 
+                            state: { 
+                              agent: {
+                                name: 'Rajesh Kumar',
+                                role: 'Senior Agricultural Agent',
+                                phone: '+91 98765 43210',
+                                status: 'Available'
+                              }
+                            }
+                          });
+                        }}
+                      >
                         <i className="fas fa-comment me-1"></i>Message
                       </button>
                     </div>
@@ -1771,10 +1795,29 @@ const FarmerDashboard = ({ user, onLogout }) => {
                       <span className="badge bg-warning">Busy</span>
                     </div>
                     <div className="d-flex justify-content-center gap-2">
-                      <button className="btn btn-sm btn-primary-custom">
+                      <button 
+                        className="btn btn-sm btn-primary-custom"
+                        onClick={() => {
+                          showToast('Agent Priya Sharma is currently busy. Try calling later.', 'warning');
+                        }}
+                      >
                         <i className="fas fa-phone me-1"></i>Call
                       </button>
-                      <button className="btn btn-sm btn-outline-success">
+                      <button 
+                        className="btn btn-sm btn-outline-success"
+                        onClick={() => {
+                          navigate('/message', { 
+                            state: { 
+                              agent: {
+                                name: 'Priya Sharma',
+                                role: 'Crop Specialist',
+                                phone: '+91 98765 43211',
+                                status: 'Busy'
+                              }
+                            }
+                          });
+                        }}
+                      >
                         <i className="fas fa-comment me-1"></i>Message
                       </button>
                     </div>
@@ -1791,10 +1834,33 @@ const FarmerDashboard = ({ user, onLogout }) => {
                       <span className="badge bg-success">Available</span>
                     </div>
                     <div className="d-flex justify-content-center gap-2">
-                      <button className="btn btn-sm btn-primary-custom">
+                      <button 
+                        className="btn btn-sm btn-primary-custom"
+                        onClick={() => {
+                          showToast('Initiating call to Amit Singh...', 'info');
+                          // Simulate call initiation with more realistic timing
+                          setTimeout(() => {
+                            showToast('Call connected to Amit Singh (+91 98765 43212)', 'success');
+                          }, 2000);
+                        }}
+                      >
                         <i className="fas fa-phone me-1"></i>Call
                       </button>
-                      <button className="btn btn-sm btn-outline-success">
+                      <button 
+                        className="btn btn-sm btn-outline-success"
+                        onClick={() => {
+                          navigate('/message', { 
+                            state: { 
+                              agent: {
+                                name: 'Amit Singh',
+                                role: 'Technical Support',
+                                phone: '+91 98765 43212',
+                                status: 'Available'
+                              }
+                            }
+                          });
+                        }}
+                      >
                         <i className="fas fa-comment me-1"></i>Message
                       </button>
                     </div>

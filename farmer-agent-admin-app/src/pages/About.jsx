@@ -1,7 +1,22 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import 'animate.css';
 
 export default function About() {
+  const navigate = useNavigate();
+
+  const handleJoinAsFarmer = () => {
+    navigate('/farmer-signup');
+  };
+
+  const handleBecomeAgent = () => {
+    navigate('/agent-signup');
+  };
+
+  const handleContactUs = () => {
+    navigate('/contact');
+  };
+
   return (
     <div className="page-content">
       <div className="container py-5">
@@ -413,15 +428,15 @@ export default function About() {
               or an organization seeking to support agriculture, we have a place for you in our ecosystem.
             </p>
             <div className="d-flex justify-content-center gap-3 flex-wrap">
-              <button className="btn btn-success btn-lg">
+              <button onClick={handleJoinAsFarmer} className="btn btn-success btn-lg">
                 <i className="fas fa-user-plus me-2"></i>
                 Join as Farmer
               </button>
-              <button className="btn btn-primary btn-lg">
+              <button onClick={handleBecomeAgent} className="btn btn-primary btn-lg">
                 <i className="fas fa-user-tie me-2"></i>
                 Become an Agent
               </button>
-              <button className="btn btn-outline-success btn-lg">
+              <button onClick={handleContactUs} className="btn btn-outline-success btn-lg">
                 <i className="fas fa-envelope me-2"></i>
                 Contact Us
               </button>

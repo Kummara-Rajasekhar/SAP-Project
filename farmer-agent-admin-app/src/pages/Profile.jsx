@@ -1,15 +1,16 @@
-import React, { useContext, useState } from 'react';
-import { AuthContext, ToastContext } from '../App';
+import React, { useState, useContext, useEffect } from 'react';
+import { AuthContext } from '../context/AuthContext';
+import { ToastContext } from '../context/ToastContext';
 import 'animate.css';
 
 const defaultAvatars = {
-  farmer: 'https://c8.alamy.com/comp/KXDCJC/1-indian-rural-farmer-old-man-holding-shovel-working-farm-KXDCJC.jpg',
+  farmer: 'https://randomuser.me/api/portraits/men/32.jpg',
   agent: 'https://randomuser.me/api/portraits/men/45.jpg',
   admin: 'https://randomuser.me/api/portraits/women/65.jpg',
 };
 
 export default function Profile() {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, login } = useContext(AuthContext);
   const { showToast } = useContext(ToastContext);
   const [form, setForm] = useState({
     name: user?.name || '',
@@ -22,6 +23,19 @@ export default function Profile() {
   const [editing, setEditing] = useState(false);
   const [passwords, setPasswords] = useState({ current: '', new: '', confirm: '' });
   const [message, setMessage] = useState('');
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [formData, setFormData] = useState({
+    name: user?.name || '',
+    email: user?.email || '',
+    phone: user?.phone || '',
+    region: user?.region || '',
+    address: user?.address || ''
+  });
+
+  // Ensure page scrolls to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   if (!user) return (
     <div className="container py-5 text-center">
@@ -55,14 +69,13 @@ export default function Profile() {
     setEditing(false);
     setMessage('');
   };
-  const handleSave = e => {
-    e.preventDefault();
+  const handleSave = () => {
     const updatedUser = { ...user, ...form };
-    setUser(updatedUser);
-    localStorage.setItem('user', JSON.stringify(updatedUser));
+    login(updatedUser);
     setEditing(false);
-    setMessage('Profile updated successfully!');
+    setShowSuccessMessage(true);
     showToast('Profile updated successfully!', 'success');
+    setTimeout(() => setShowSuccessMessage(false), 3000);
   };
   const handlePasswordChange = e => setPasswords({ ...passwords, [e.target.name]: e.target.value });
   const handlePasswordSubmit = e => {
@@ -76,7 +89,7 @@ export default function Profile() {
 
   const getRoleIcon = (role) => {
     switch(role) {
-      case 'farmer': return 'fas fa-user-farmer';
+      case 'farmer': return 'fas fa-seedling';
       case 'agent': return 'fas fa-user-tie';
       case 'admin': return 'fas fa-user-shield';
       default: return 'fas fa-user';
@@ -94,92 +107,122 @@ export default function Profile() {
 
   return (
     <div className="page-content">
-      <div className="container py-5">
+      <div className="container py-4">
         <div className="row justify-content-center">
           <div className="col-lg-10">
-            {/* Profile Header */}
-            <div className="profile-header mb-5 animate__animated animate__fadeInDown">
-              <div className="card shadow-lg border-0">
-                <div className="card-body p-5">
-                  <div className="row align-items-center">
-                    <div className="col-lg-4 text-center">
-                      <div className="profile-avatar-wrapper mb-4">
-                        <div className="profile-avatar">
-                          <img 
-                            src={form.profilePic} 
-                            alt="Profile" 
-                            className="profile-image"
-                            onError={(e) => {
-                              e.target.src = defaultAvatars[user.role];
-                            }}
-                          />
-                          {editing && (
-                            <div className="avatar-overlay">
-                              <label htmlFor="profile-pic-input" className="avatar-upload-btn">
-                                <i className="fas fa-camera"></i>
-                              </label>
-                              <input 
-                                id="profile-pic-input"
-                                type="file" 
-                                accept="image/*" 
-                                onChange={handlePicChange} 
-                                className="d-none" 
-                              />
+            {/* Main Profile Card */}
+            <div className="card shadow-lg border-0 profile-main-card animate__animated animate__fadeInDown">
+              <div className="card-body p-4">
+                <div className="row">
+                  {/* Profile Picture - Left Side */}
+                  <div className="col-lg-3 text-center">
+                    <div className="profile-pic-section">
+                      <div className="profile-pic-wrapper">
+                        <img 
+                          src={form.profilePic} 
+                          alt="Profile" 
+                          className="profile-pic"
+                          onError={(e) => {
+                            e.target.src = defaultAvatars[user.role];
+                          }}
+                        />
+                        {editing && (
+                          <div className="pic-overlay">
+                            <label htmlFor="profile-pic-input" className="pic-upload-btn">
+                              <i className="fas fa-camera"></i>
+                            </label>
+                            <input 
+                              id="profile-pic-input"
+                              type="file" 
+                              accept="image/*" 
+                              onChange={handlePicChange} 
+                              className="d-none" 
+                            />
+                          </div>
+                        )}
+                      </div>
+                      <div className="mt-3">
+                        <span className={`badge bg-${getRoleColor(user.role)} fs-6 px-3 py-2`}>
+                          <i className={`${getRoleIcon(user.role)} me-2`}></i>
+                          {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Profile Details - Right Side */}
+                  <div className="col-lg-9">
+                    <div className="profile-details-section">
+                      <div className="d-flex justify-content-between align-items-start mb-4">
+                        <div>
+                          <h2 className="profile-name mb-2">{form.name}</h2>
+                          <p className="text-muted mb-0">User ID: {user.id}</p>
+                        </div>
+                        <div className="profile-actions">
+                          {!editing ? (
+                            <button 
+                              type="button" 
+                              className="btn btn-outline-primary btn-sm"
+                              onClick={handleEdit}
+                            >
+                              <i className="fas fa-edit me-1"></i>
+                              Edit
+                            </button>
+                          ) : (
+                            <div className="d-flex gap-2">
+                              <button 
+                                type="button" 
+                                className="btn btn-success btn-sm"
+                                onClick={handleSave}
+                              >
+                                <i className="fas fa-save me-1"></i>
+                                Save
+                              </button>
+                              <button 
+                                type="button" 
+                                className="btn btn-secondary btn-sm"
+                                onClick={handleCancel}
+                              >
+                                <i className="fas fa-times me-1"></i>
+                                Cancel
+                              </button>
                             </div>
                           )}
                         </div>
                       </div>
-                    </div>
-                    <div className="col-lg-8">
-                      <div className="profile-info">
-                        <div className="d-flex align-items-center mb-3">
-                          <h2 className="mb-0 me-3">{form.name}</h2>
-                          <span className={`badge bg-${getRoleColor(user.role)} fs-6`}>
-                            <i className={`${getRoleIcon(user.role)} me-2`}></i>
-                            {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
-                          </span>
-                        </div>
-                        <p className="text-muted mb-3">
-                          <i className="fas fa-envelope me-2"></i>
-                          {form.email}
-                        </p>
-                        <p className="text-muted mb-3">
-                          <i className="fas fa-map-marker-alt me-2"></i>
-                          {form.region || 'Region not specified'}
-                        </p>
-                        <p className="text-muted mb-4">
-                          <i className="fas fa-id-card me-2"></i>
-                          User ID: {user.id}
-                        </p>
-                        {!editing ? (
-                          <button 
-                            type="button" 
-                            className="btn btn-outline-primary btn-lg"
-                            onClick={handleEdit}
-                          >
-                            <i className="fas fa-edit me-2"></i>
-                            Edit Profile
-                          </button>
-                        ) : (
-                          <div className="d-flex gap-2">
-                            <button 
-                              type="button" 
-                              className="btn btn-success btn-lg"
-                              onClick={handleSave}
-                            >
-                              <i className="fas fa-save me-2"></i>
-                              Save Changes
-                            </button>
-                            <button 
-                              type="button" 
-                              className="btn btn-secondary btn-lg"
-                              onClick={handleCancel}
-                            >
-                              <i className="fas fa-times me-2"></i>
-                              Cancel
-                            </button>
+                      
+                      <div className="profile-info-grid">
+                        <div className="info-item">
+                          <i className="fas fa-envelope text-primary"></i>
+                          <div>
+                            <span className="info-label">Email</span>
+                            <span className="info-value">{form.email}</span>
                           </div>
-                        )}
+                        </div>
+                        
+                        <div className="info-item">
+                          <i className="fas fa-map-marker-alt text-warning"></i>
+                          <div>
+                            <span className="info-label">Region</span>
+                            <span className="info-value">{form.region || 'Not specified'}</span>
+                          </div>
+                        </div>
+                        
+                        <div className="info-item">
+                          <i className="fas fa-phone text-success"></i>
+                          <div>
+                            <span className="info-label">Phone</span>
+                            <span className="info-value">{form.phone || 'Not specified'}</span>
+                          </div>
+                        </div>
+                        
+                        <div className="info-item">
+                          <i className="fas fa-home text-info"></i>
+                          <div>
+                            <span className="info-label">Address</span>
+                            <span className="info-value">{form.address || 'Not specified'}</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -188,13 +231,13 @@ export default function Profile() {
             </div>
 
             {/* Profile Form */}
-            <div className="profile-form animate__animated animate__fadeInUp">
+            <div className="profile-form animate__animated animate__fadeInUp mt-4">
               <div className="card shadow-sm">
                 <div className="card-header bg-light">
-                  <h4 className="mb-0">
+                  <h5 className="mb-0">
                     <i className="fas fa-user-edit me-2 text-primary"></i>
                     Personal Information
-                  </h4>
+                  </h5>
                 </div>
                 <div className="card-body p-4">
                   <form onSubmit={handleSave}>
@@ -206,7 +249,7 @@ export default function Profile() {
                         </label>
                         <input 
                           type="text" 
-                          className="form-control form-control-lg" 
+                          className="form-control" 
                           name="name" 
                           value={form.name} 
                           onChange={handleChange} 
@@ -221,7 +264,7 @@ export default function Profile() {
                         </label>
                         <input 
                           type="email" 
-                          className="form-control form-control-lg" 
+                          className="form-control" 
                           name="email" 
                           value={form.email} 
                           onChange={handleChange} 
@@ -238,7 +281,7 @@ export default function Profile() {
                         </label>
                         <input 
                           type="text" 
-                          className="form-control form-control-lg" 
+                          className="form-control" 
                           name="region" 
                           value={form.region} 
                           onChange={handleChange} 
@@ -253,7 +296,7 @@ export default function Profile() {
                         </label>
                         <input 
                           type="tel" 
-                          className="form-control form-control-lg" 
+                          className="form-control" 
                           name="phone" 
                           value={form.phone} 
                           onChange={handleChange} 
@@ -268,7 +311,7 @@ export default function Profile() {
                           Address
                         </label>
                         <textarea 
-                          className="form-control form-control-lg" 
+                          className="form-control" 
                           name="address" 
                           value={form.address} 
                           onChange={handleChange} 
@@ -286,10 +329,10 @@ export default function Profile() {
             <div className="account-security mt-4 animate__animated animate__fadeInUp">
               <div className="card shadow-sm">
                 <div className="card-header bg-light">
-                  <h4 className="mb-0">
+                  <h5 className="mb-0">
                     <i className="fas fa-shield-alt me-2 text-warning"></i>
                     Account Security
-                  </h4>
+                  </h5>
                 </div>
                 <div className="card-body p-4">
                   <form onSubmit={handlePasswordSubmit}>
@@ -349,6 +392,12 @@ export default function Profile() {
               <div className="alert alert-success mt-4 animate__animated animate__fadeIn">
                 <i className="fas fa-check-circle me-2"></i>
                 {message}
+              </div>
+            )}
+            {showSuccessMessage && (
+              <div className="alert alert-success mt-4 animate__animated animate__fadeIn">
+                <i className="fas fa-check-circle me-2"></i>
+                Profile updated successfully!
               </div>
             )}
           </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'animate.css';
 
 const serviceCategories = [
@@ -155,6 +155,12 @@ const serviceCategories = [
 ];
 
 export default function Services() {
+  const [showAIChatbot, setShowAIChatbot] = useState(false);
+
+  const handleAIInsights = () => {
+    setShowAIChatbot(true);
+  };
+
   return (
     <div className="page-content">
       {/* Hero Section */}
@@ -221,7 +227,7 @@ export default function Services() {
                       <div className="card-subtitle">Live data</div>
                     </div>
                   </div>
-                  <div className="floating-card card-3">
+                  <div className="floating-card card-3" onClick={handleAIInsights} style={{ cursor: 'pointer' }}>
                     <div className="card-icon">
                       <i className="fas fa-robot"></i>
                     </div>
@@ -251,7 +257,7 @@ export default function Services() {
               <div className="category-divider"></div>
             </div>
             
-            <div className="row">
+            <div className="row justify-content-center">
               {category.services.map((service, serviceIndex) => (
                 <div key={serviceIndex} className="col-lg-4 col-md-6 mb-4">
                   <div className={`service-card card h-100 shadow-sm animate__animated animate__fadeInUp`} 
@@ -263,11 +269,11 @@ export default function Services() {
                         </div>
                       </div>
                       
-                      <h5 className="card-title mb-3">{service.title}</h5>
-                      <p className="card-text text-muted mb-4">{service.description}</p>
+                      <h5 className="card-title mb-3 text-center">{service.title}</h5>
+                      <p className="card-text text-muted mb-4 text-center">{service.description}</p>
                       
                       <div className="service-features">
-                        <h6 className="text-muted mb-3">Key Features:</h6>
+                        <h6 className="text-muted mb-3 text-center">Key Features:</h6>
                         <ul className="list-unstyled">
                           {service.features.map((feature, featureIndex) => (
                             <li key={featureIndex} className="mb-2">
@@ -384,9 +390,9 @@ export default function Services() {
                 <i className="fas fa-play me-2"></i>
                 Watch Demo
               </button>
-              <button className="btn btn-outline-light btn-lg">
-                <i className="fas fa-phone me-2"></i>
-                Contact Expert
+              <button className="btn btn-outline-light btn-lg" onClick={handleAIInsights}>
+                <i className="fas fa-robot me-2"></i>
+                AI Insights
               </button>
             </div>
           </div>

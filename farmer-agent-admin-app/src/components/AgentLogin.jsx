@@ -1,21 +1,26 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext, ToastContext } from '../App';
+import { AuthContext } from '../context/AuthContext';
+import { ToastContext } from '../context/ToastContext';
 import 'animate.css';
 
 export default function AgentLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { setUser } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
   const { showToast } = useContext(ToastContext);
+
+  // Ensure page scrolls to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (email === 'agent@test.com' && password === 'password') {
       const user = { id: 'A001', name: 'Sarah Agent', role: 'agent', region: 'North Region', email };
-      setUser(user);
-      localStorage.setItem('user', JSON.stringify(user));
+      login(user);
       showToast('Login successful!', 'success');
       navigate('/'); // Navigate to home page instead of dashboard
     } else {
