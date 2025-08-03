@@ -626,24 +626,24 @@ body {
 }
 
 /* Sidebar styling - Perfect alignment without gaps */
-  .sidebar {
-    position: fixed;
-    top: 90px; /* Adjusted for increased header */
+.sidebar {
+  position: fixed;
+  top: 90px; /* Adjusted for increased header */
     left: 25px; /* Account for dashboard padding */
     height: calc(100vh - 115px); /* Adjusted for fixed layout */
-    width: 250px; /* Fixed width */
-    background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,249,250,0.95) 100%);
-    backdrop-filter: blur(10px);
-    color: var(--sidebar-text);
-    z-index: 1030;
-    border-right: 1px solid rgba(76, 175, 80, 0.1); /* Only right border */
+  width: 250px; /* Fixed width */
+  background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,249,250,0.95) 100%);
+  backdrop-filter: blur(10px);
+  color: var(--sidebar-text);
+  z-index: 1030;
+  border-right: 1px solid rgba(76, 175, 80, 0.1); /* Only right border */
     border-radius: 12px; /* Add border radius */
-    transition: all 0.3s ease;
-    overflow-y: auto;
-    box-shadow: 2px 0 16px rgba(76,175,80,0.08);
-    flex-shrink: 0;
+  transition: all 0.3s ease;
+  overflow-y: auto;
+  box-shadow: 2px 0 16px rgba(76,175,80,0.08);
+  flex-shrink: 0;
     /* padding: 25px 20px; */ /* Increased padding */
-  }
+}
 
 .sidebar-logo {
   font-size: 1.3rem; /* Increased size */

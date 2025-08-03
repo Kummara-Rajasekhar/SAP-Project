@@ -33,7 +33,7 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="login-page">
+    <div className="">
       <div className="container-fluid">
         <div className="row min-vh-100">
           {/* Left Side - Branding & Info */}
