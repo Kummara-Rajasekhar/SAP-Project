@@ -1219,6 +1219,14 @@ const AdminDashboard = () => {
                     <button className="btn btn-outline-success w-100 mb-2">
                       <i className="fas fa-chart-bar me-2"></i>View Analytics
                     </button>
+                    <a 
+                      href="https://agriconnectdashboard-1.streamlit.app/" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="btn btn-outline-primary w-100 mb-2"
+                    >
+                      <i className="fas fa-tachometer-alt me-2"></i>Metrics Dashboard
+                    </a>
                     <button className="btn btn-outline-warning w-100 mb-2">
                       <i className="fas fa-cog me-2"></i>System Settings
                     </button>

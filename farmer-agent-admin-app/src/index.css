@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Global layout and alignment */
 * {
   margin: 0;
@@ -605,7 +609,7 @@ body {
   flex: 1;
   position: relative;
   z-index: 1;
-  padding-top: 80px; /* Account for fixed header */
+  padding-top: 64px; /* Account for fixed header (h-16 = 64px) */
   padding-bottom: 40px; /* Normal padding */
   background: #f8f9fa;
   /* min-height: calc(100vh - 120px);  *//* Ensure minimum height for content */
@@ -919,7 +923,7 @@ body {
   }
 
   .main-content {
-    padding-top: 75px; /* Adjusted for mobile header */
+    padding-top: 64px; /* Adjusted for mobile header */
     padding-bottom: 40px; /* Normal padding */
   }
 

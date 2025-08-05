@@ -1449,73 +1449,65 @@ const AgentDashboard = () => {
           <div>
             <h4 className="mb-4">AI Tools</h4>
             <div className="row">
-              <div className="col-md-4 mb-4">
+              <div className="col-md-6 mb-4">
                 <div className="card h-100">
                   <div className="card-header">
                     <h5 className="mb-0">
-                      <i className="fas fa-seedling me-2"></i>Crop Prediction
+                      <i className="fas fa-seedling me-2"></i>Crop Recommendation
                     </h5>
                   </div>
                   <div className="card-body">
-                    <p className="text-muted">Predict crop yields and optimal planting times using AI.</p>
+                    <p className="text-muted">AI-powered crop recommendation system that analyzes soil conditions, climate data, and market trends to suggest the most profitable crops for your region.</p>
                     <div className="mb-3">
-                      <label className="form-label">Select Crop</label>
-                      <select className="form-select">
-                        <option>Wheat</option>
-                        <option>Rice</option>
-                        <option>Corn</option>
-                        <option>Cotton</option>
-                      </select>
+                      <label className="form-label">Key Features:</label>
+                      <ul className="list-unstyled">
+                        <li><i className="fas fa-check-circle text-success me-2"></i>Soil Analysis Integration</li>
+                        <li><i className="fas fa-check-circle text-success me-2"></i>Climate Pattern Analysis</li>
+                        <li><i className="fas fa-check-circle text-success me-2"></i>Market Demand Prediction</li>
+                        <li><i className="fas fa-check-circle text-success me-2"></i>Profitability Calculator</li>
+                      </ul>
                     </div>
-                    <div className="mb-3">
-                      <label className="form-label">Region</label>
-                      <select className="form-select">
-                        <option>North Region</option>
-                        <option>South Region</option>
-                        <option>East Region</option>
-                        <option>West Region</option>
-                      </select>
-                    </div>
-                    <button className="btn btn-primary-custom w-100">
-                      <i className="fas fa-magic me-2"></i>Generate Prediction
-                    </button>
+                    <a 
+                      href="https://crop-recommendation-vbbtdzkvym2whkdx3cdqmi.streamlit.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-success w-100"
+                    >
+                      <i className="fas fa-external-link-alt me-2"></i>Launch Crop Recommendation
+                    </a>
                   </div>
                 </div>
               </div>
-              <div className="col-md-4 mb-4">
+              <div className="col-md-6 mb-4">
                 <div className="card h-100">
                   <div className="card-header">
                     <h5 className="mb-0">
-                      <i className="fas fa-spray-can me-2"></i>Pesticide Recommendation
+                      <i className="fas fa-bug me-2"></i>Pesticides Recommendation
                     </h5>
                   </div>
                   <div className="card-body">
-                    <p className="text-muted">Get AI-powered pesticide recommendations for crop protection.</p>
+                    <p className="text-muted">Smart pesticide recommendation system that identifies crop diseases and pests, then suggests the most effective and safe treatment options.</p>
                     <div className="mb-3">
-                      <label className="form-label">Crop Type</label>
-                      <select className="form-select">
-                        <option>Wheat</option>
-                        <option>Rice</option>
-                        <option>Corn</option>
-                        <option>Cotton</option>
-                      </select>
+                      <label className="form-label">Key Features:</label>
+                      <ul className="list-unstyled">
+                        <li><i className="fas fa-check-circle text-warning me-2"></i>Disease Identification</li>
+                        <li><i className="fas fa-check-circle text-warning me-2"></i>Pest Detection</li>
+                        <li><i className="fas fa-check-circle text-warning me-2"></i>Safe Treatment Options</li>
+                        <li><i className="fas fa-check-circle text-warning me-2"></i>Cost-Effective Solutions</li>
+                      </ul>
                     </div>
-                    <div className="mb-3">
-                      <label className="form-label">Disease/Issue</label>
-                      <select className="form-select">
-                        <option>Rust Disease</option>
-                        <option>Powdery Mildew</option>
-                        <option>Aphid Infestation</option>
-                        <option>Root Rot</option>
-                      </select>
-                    </div>
-                    <button className="btn btn-primary-custom w-100">
-                      <i className="fas fa-search me-2"></i>Get Recommendation
-                    </button>
+                    <a 
+                      href="https://fertilizer-recommendation.streamlit.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-warning w-100"
+                    >
+                      <i className="fas fa-external-link-alt me-2"></i>Launch Pesticides Recommendation
+                    </a>
                   </div>
                 </div>
               </div>
-              <div className="col-md-4 mb-4">
+              <div className="col-md-6 mb-4">
                 <div className="card h-100">
                   <div className="card-header">
                     <h5 className="mb-0">
@@ -1523,28 +1515,53 @@ const AgentDashboard = () => {
                     </h5>
                   </div>
                   <div className="card-body">
-                    <p className="text-muted">Predict market prices for crops using historical data.</p>
+                    <p className="text-muted">Advanced machine learning models that predict crop prices based on historical data, market trends, and seasonal patterns to help maximize profits.</p>
                     <div className="mb-3">
-                      <label className="form-label">Crop</label>
-                      <select className="form-select">
-                        <option>Wheat</option>
-                        <option>Rice</option>
-                        <option>Corn</option>
-                        <option>Cotton</option>
-                      </select>
+                      <label className="form-label">Key Features:</label>
+                      <ul className="list-unstyled">
+                        <li><i className="fas fa-check-circle text-primary me-2"></i>Historical Price Analysis</li>
+                        <li><i className="fas fa-check-circle text-primary me-2"></i>Market Trend Prediction</li>
+                        <li><i className="fas fa-check-circle text-primary me-2"></i>Seasonal Pattern Recognition</li>
+                        <li><i className="fas fa-check-circle text-primary me-2"></i>Profit Optimization</li>
+                      </ul>
                     </div>
+                    <a 
+                      href="https://crop-prize-prediction-model-ac.streamlit.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-primary w-100"
+                    >
+                      <i className="fas fa-external-link-alt me-2"></i>Launch Price Prediction
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-6 mb-4">
+                <div className="card h-100">
+                  <div className="card-header">
+                    <h5 className="mb-0">
+                      <i className="fas fa-cloud-sun me-2"></i>Weather Analysis
+                    </h5>
+                  </div>
+                  <div className="card-body">
+                    <p className="text-muted">Comprehensive weather monitoring and analysis system providing real-time weather data, forecasts, and agricultural recommendations.</p>
                     <div className="mb-3">
-                      <label className="form-label">Time Period</label>
-                      <select className="form-select">
-                        <option>Next Month</option>
-                        <option>Next 3 Months</option>
-                        <option>Next 6 Months</option>
-                        <option>Next Year</option>
-                      </select>
+                      <label className="form-label">Key Features:</label>
+                      <ul className="list-unstyled">
+                        <li><i className="fas fa-check-circle text-info me-2"></i>Real-time Weather Data</li>
+                        <li><i className="fas fa-check-circle text-info me-2"></i>Agricultural Forecasts</li>
+                        <li><i className="fas fa-check-circle text-info me-2"></i>Crop-Specific Alerts</li>
+                        <li><i className="fas fa-check-circle text-info me-2"></i>Climate Analysis</li>
+                      </ul>
                     </div>
-                    <button className="btn btn-primary-custom w-100">
-                      <i className="fas fa-calculator me-2"></i>Predict Price
-                    </button>
+                    <a 
+                      href="https://weathermodel-1.streamlit.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-info w-100"
+                    >
+                      <i className="fas fa-external-link-alt me-2"></i>Launch Weather Analysis
+                    </a>
                   </div>
                 </div>
               </div>
